@@ -1,7 +1,7 @@
 classdef Mcd_Frame
     %mind control data
     properties
-	FrameNumber = NaN; %internal frame number, not nth recorded frame
+        FrameNumber = NaN; %internal frame number, not nth recorded frame
         TimeElapsed = NaN; %time since start of experiment (in s)
         Head = [NaN NaN]; %position in pixels on camera
         Tail = [NaN NaN]; %position in pixels on camera
@@ -17,6 +17,12 @@ classdef Mcd_Frame
         StageVelocity =0; %velocity sent to stage in stage units/second
         ProtocolIsOn =0; %bool whether you're using protocol
         ProtocolStep =0; %what step within protocol is currently selected
+    end
+    
+    methods (Static)
+        mcdf_arr = yaml2matlab(fname);
+        mcdf = readOneFrame(fid);
+        success = seekToFirstFrame(fid);
     end
         
 end

@@ -10,10 +10,10 @@ function mcdf=yaml2matlab(file)
 
 fid = fopen(file); 
 
-seekToFirstFrame(fid);
+Mcd_Frame.seekToFirstFrame(fid);
 k=1;
 while(~feof(fid))
-    mcdf(k)=readOneFrame(fid);
+    mcdf(k)=Mcd_Frame.readOneFrame(fid);
     k=k+1;
     if ~mod(k,100)
         disp(k);

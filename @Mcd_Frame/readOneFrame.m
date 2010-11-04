@@ -244,9 +244,11 @@ end
 
 function vec=parseIntDataStr(str)
 %Parses a string containing a bunch of integers delimited in some way
-ind=regexp(str,'[0-9]*');
-for n=1:length(ind)
-    vec(n)=sscanf(str(ind(n):end),'%d');
+%strs = regexp(str,'[0-9]*','match');
+%vec = str2double(strs);
+ind =  regexp(str,'[0-9]*','start');
+vec = zeros(size(ind));
+for j = 1:length(ind)
+    vec(j) = sscanf(str(ind(j):end), '%d');
 end
-
 end

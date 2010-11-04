@@ -13,7 +13,7 @@ fid = fopen(file);
 Mcd_Frame.seekToFirstFrame(fid);
 k=1;
 while(~feof(fid))
-    mcdf(k)=Mcd_Frame.readOneFrame(fid);
+    mcdf(k)=Mcd_Frame.readOneFrame(fid); %#ok<AGROW>
     k=k+1;
     if ~mod(k,100)
         disp(k);

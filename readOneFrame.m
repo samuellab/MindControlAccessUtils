@@ -11,7 +11,7 @@ function mcdf=readOneFrame(fid)
 
 % Read the line after the dash.. this should be a field
 tline = fgets(fid);
-mcdf=MCD_FRAME;
+mcdf=Mcd_Frame;
 
 sElapsed=[];
 msRemElapsed=[];

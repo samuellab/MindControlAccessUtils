@@ -1,4 +1,4 @@
-classdef MCD_FRAME
+classdef Mcd_Frame
     %mind control data
     properties
         FrameNumber

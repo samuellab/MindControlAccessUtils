@@ -1,22 +1,22 @@
 classdef Mcd_Frame
     %mind control data
     properties
-        FrameNumber %internal frame number, not nth recorded frame
-        TimeElapsed %time since start of experiment (in s)
-        Head %position in pixels on camera
-        Tail %position in pixels on camera
-        BoundaryA %2*N length vector xyxyxy position in pixels on camera
-        BoundaryB %2*N length vector xyxyxy position in pixels on camera
-        SegmentedCenterline %2*N length vector xyxyxy position in pixels on camera
-        DLPisOn %bool whether DLP is active
-        FloodLightIsOn %flood light overrides all other patterns and hits entire fov
-        IllumInvert %whether pattern is inverted (invert has precedence over floodlight)
-        IllumFlipLR %flips output left/right with respect to worm's body
-        IllumRectOrigin %center of the freehand rectangular illumination in wormspace
-        IllumRectRadius %xy value describing dimension of rectangle
-        StageVelocity %velocity sent to stage in stage units/second
-        ProtocolIsOn %bool whether you're using protocol
-        ProtocolStep %what step within protocol is currently selected
+	FrameNumber = NaN; %internal frame number, not nth recorded frame
+        TimeElapsed = NaN; %time since start of experiment (in s)
+        Head = [NaN NaN]; %position in pixels on camera
+        Tail = [NaN NaN]; %position in pixels on camera
+        BoundaryA = [1:200]*NaN; %2*N length vector xyxyxy position in pixels on camera
+        BoundaryB = [1:200]*NaN; %2*N length vector xyxyxy position in pixels on camera
+        SegmentedCenterline = [1:200]*NaN;  %2*N length vector xyxyxy position in pixels on camera
+        DLPisOn = 0; %bool whether DLP is active
+        FloodLightIsOn =0; %flood light overrides all other patterns and hits entire fov
+        IllumInvert =0; %whether pattern is inverted (invert has precedence over floodlight)
+        IllumFlipLR =0; %flips output left/right with respect to worm's body
+        IllumRectOrigin =0; %center of the freehand rectangular illumination in wormspace
+        IllumRectRadius =0; %xy value describing dimension of rectangle
+        StageVelocity =0; %velocity sent to stage in stage units/second
+        ProtocolIsOn =0; %bool whether you're using protocol
+        ProtocolStep =0; %what step within protocol is currently selected
     end
         
 end

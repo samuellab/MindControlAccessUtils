@@ -29,6 +29,8 @@ plot(C(orig(2),1),sign.*C(orig(2),2),'o');
 
 [x, y]=simpleIllumWorm2Im(w,[21,100])
 plot(x,sign.*y,'ro')
+
+
 hold off
 xlim([0,1024])
 ylim([-768,0])

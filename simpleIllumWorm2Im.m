@@ -21,18 +21,21 @@ AP=2; %Anterior Posterior Dimension
 xx=1;
 yy=2;
 
-W_vertA= W_orig+W_extent*[1 0;0 1];
+W_vertA= W_orig+W_extent*[1 0;0 1]
 
 %%Let's convert W_vertA to I_vertA
 W_GridSize=[21,100]
 
-%Distance from centerline to boundary in dorsal/ventral plane in worm space
-W_radDV=(W_GridSize(xx)-1)/2;
 
-%Radius vector for this particular anterior/posterior point in image space
-I_radDV=BoundaryA(W_vertA(AP),:)- C(W_vertA(AP),:);
-I_vertA=C(W_vertA(AP),:)+ ( W_vertA(DV) / W_radDV ) .* I_radDV;
+I_vertA=wormpt2impt(W_vertA,W_GridSize,BoundaryA,BoundaryB,C);
+x(1)=I_vertA(xx);
+y(1)=I_vertA(yy);
 
-x=I_vertA(xx);
-y=I_vertA(yy);
+
+W_vertB= W_orig+W_extent*[-1 0;0 1]
+I_vertB=wormpt2impt(W_vertB,W_GridSize,BoundaryA,BoundaryB,C);
+x(2)=I_vertB(xx);
+y(2)=I_vertB(yy);
+
+
 

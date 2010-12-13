@@ -27,15 +27,19 @@ W_vertA= W_orig+W_extent*[1 0;0 1]
 W_GridSize=[21,100]
 
 
-I_vertA=wormpt2impt(W_vertA,W_GridSize,BoundaryA,BoundaryB,C);
-x(1)=I_vertA(xx);
-y(1)=I_vertA(yy);
+Vert(1,:)=W_orig+W_extent*[1 0;0 1];
+Vert(2,:)=W_orig+W_extent*[-1 0;0 1];
+Vert(3,:)=W_orig+W_extent*[-1 0;0 -1];
+Vert(4,:)=W_orig+W_extent*[1 0;0 -1];
 
+W_intV=interpDVvertices(Vert);
 
-W_vertB= W_orig+W_extent*[-1 0;0 1]
-I_vertB=wormpt2impt(W_vertB,W_GridSize,BoundaryA,BoundaryB,C);
-x(2)=I_vertB(xx);
-y(2)=I_vertB(yy);
+for k=1:length(W_intV)
+
+    temp=wormpt2impt(W_intV(k,:),W_GridSize,BoundaryA,BoundaryB,C);
+    x(k)=temp(1);
+    y(k)=temp(2);
+end
 
 
 

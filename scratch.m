@@ -1,6 +1,6 @@
 %This will plot a worm
 
-
+videoIn='D:\WormIllum\100720\20100720_1735_egl6ChR_12_HUDS.avi';
 
 figure(1);
 figure(2);
@@ -8,6 +8,9 @@ sign=-1;
 
 startf=2958;
 endf=9914;
+
+obj=mmreader(videoIn);
+
 
 for k=1:length(mcdf)
     
@@ -30,7 +33,7 @@ for k=1:length(mcdf)
     plot(C(1+orig(2),1),sign.*C(1+orig(2),2),'o');
     
     
-    [x, y]=simpleIllumWorm2Im(w,[21,100])
+    [x, y]=simpleIllumWorm2Im(w,[21,100]);
     plot(x,sign.*y,'ro')
     
     
@@ -40,8 +43,46 @@ for k=1:length(mcdf)
     ylim([-768,0])
     
     figure(2);
-    imshow(poly2mask(x, y, 768,1024));
     
+    
+    %Make a binary mask based on the polygon and resize it to be the size
+    %of the frame that we are reading in
+    mask = imresize(poly2mask(x, y, 768,1024), [obj.Height obj.Width]); 
+    
+    %invert the mask
+    invMask=ones(size(mask))-mask;
+
+    
+    %Read in the current frame
+    currentFrame=obj.read(k);
+    
+    
+        
+    %Copy over the channel corresponding to the color we are interested in
+    merge(:,:,3)=currentFrame(:,:,3);
+   
+
+
+ 
+    %If the DLP is off
+    if (mcdf(k).DLPisOn)
+        %how much of the other channels should shine through in the roi
+        factor=0; %nothing whent he laser is on.. only the blue channel
+    else
+        factor=.7; %most of the other channels should shine through.. it should only be tinged blue
+
+    end
+    
+    
+    %the other channels should be zero where the
+    %laser is illuminated (the roi)
+    merge(:,:,1)=currentFrame(:,:,1).*uint8(invMask)+  uint8(factor.* (uint8(mask).*currentFrame(:,:,1))) ;
+    merge(:,:,2)=currentFrame(:,:,2).*uint8(invMask)+  uint8(factor.* (uint8(mask).*currentFrame(:,:,2))) ;
+    
+
+        
+    
+    imshow(merge);
     
     
     pause

@@ -11,7 +11,7 @@ W_orig=mcdf.IllumRectOrigin;
 W_extent=mcdf.IllumRectRadius;
 
 %Origin in Image space
-I_orig=C(W_orig(2),:);
+I_orig=C(1+W_orig(2),:);
 
 l=length(C);
 

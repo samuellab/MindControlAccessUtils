@@ -15,5 +15,5 @@ else
     Boundary=BoundaryB;
     sign=-1;
 end
-I_radDV=Boundary(WormPt(AP),:)- Centerline(WormPt(AP),:);
-imPt=round(Centerline(WormPt(AP),:)+ ( WormPt(DV) / W_radDV ).*sign .* I_radDV);
+I_radDV=Boundary(max(1,1+WormPt(AP)),:)- Centerline(max(1,(1+WormPt(AP))),:);
+imPt=round(Centerline(max(1,1+WormPt(AP)),:)+ ( WormPt(DV) / W_radDV ).*sign .* I_radDV);

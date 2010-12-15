@@ -106,4 +106,3 @@ for k=1:length(mcdf)
        
     end
 end
-aviobj = close(aviobj);

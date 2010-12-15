@@ -1,25 +1,28 @@
 %This will plot a worm
 
-videoIn='D:\WormIllum\100720\20100720_1735_egl6ChR_12_HUDS.avi';
-aviobj = avifile('vidOut.avi')
+videoIn='C:\Documents and Settings\andy\My Documents\Publication\RawSupplementaryVideo\20100720_1735_egl6ChR_12.avi';
 
 figure(1);
 figure(2);
 sign=-1;
 
-startf=2958;
-endf=9914;
+startf=6762;
+endf=9524;
 
 obj=mmreader(videoIn);
 
 DISPLAY=0;
 
-
+m=1;
 for k=1:length(mcdf)
-    
+    if (m>obj.NumberOfFrames)
+        disp(['m=' num2str(m)])
+        disp('m is larger than the number of frames in the video.. breaking..');
+        break;
+    end
     if (mcdf(k).FrameNumber <= endf ) && (mcdf(k).FrameNumber >= startf )
-        if mod(k,100)==0
-            disp(num2str(k))
+        if mod(mcdf(k).FrameNumber,100)==0
+            disp(num2str(mcdf(k).FrameNumber))
         end
         
         w=mcdf(k);
@@ -61,32 +64,43 @@ for k=1:length(mcdf)
         
         
         %Read in the current frame
-        currentFrame=obj.read(k);
+        currentFrame=obj.read(m);
+        m=m+1; %increment frame
         
         
         
-        %Copy over the channel corresponding to the color we are interested in
-        merge(:,:,3)=currentFrame(:,:,3);
-        
-        
+ 
         
         
         %If the DLP is off
         if (mcdf(k).DLPisOn)
             %how much of the other channels should shine through in the roi
-            factor=.2; %not much when the laser is on.. only the blue channel
+            factor=1; %not much when the laser is on.. only the blue channel
         else
-            factor=.7; %most of the other channels should shine through.. it should only be tinged blue
+            factor=.2; %most of the other channels should shine through.. it should only be tinged blue
             
         end
         
         
         %the other channels should be zero where the
         %laser is illuminated (the roi)
-        merge(:,:,1)=currentFrame(:,:,1).*uint8(invMask)+  uint8(factor.* (uint8(mask).*currentFrame(:,:,1))) ;
-        merge(:,:,2)=currentFrame(:,:,2).*uint8(invMask)+  uint8(factor.* (uint8(mask).*currentFrame(:,:,2))) ;
+        merge(:,:,3)=uint8( currentFrame(:,:,3)+factor.*255.*uint8(mask) );
+        merge(:,:,1)=uint8( uint8(currentFrame(:,:,1)-150.*uint8(mask) ) +factor.*50.*uint8(mask) );
+        merge(:,:,2)=uint8( uint8(currentFrame(:,:,1)-150.*uint8(mask) )+factor.*50.*uint8(mask) );
         
-        aviobj = addframe(aviobj,merge);
+        %insert frame stamp
+        fstamp=uint8( 255.* ( 1-text2im(num2str(k)) ));
+        %create temp frame which is the right size and contains the frame
+        %stamp
+        tempf=uint8(zeros(obj.Height,obj.Width));
+        tempf( size(merge,1)-size(fstamp,1):size(merge,1)-1,size(merge,2)-size(fstamp,2):size(merge,2)-1)=uint8(fstamp);
+       
+        
+        merge(:,:,1)=uint8(merge(:,:,1)+tempf);
+        merge(:,:,2)=uint8(merge(:,:,2)+tempf);
+        merge(:,:,3)=uint8(merge(:,:,3)+tempf);
+        
+        imwrite(merge,['vidOut/' num2str(k) '.jpg'],'Quality',100)
         
         if (DISPLAY)
             figure(2);

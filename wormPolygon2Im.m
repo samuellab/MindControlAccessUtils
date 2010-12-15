@@ -27,11 +27,9 @@ yy=2;
 
 
 
-%%Let's convert W_vertA to I_vertA
-W_GridSize=[21,100];
 
 %If we need to flip left/right in worm coordinate space
-if mcdf.IllumFlipLR
+if mcdf.IllumFlipLR 
     flipLR=[-1 0; 0 1];
 else
     flipLR=[1 0; 0 1];
@@ -41,7 +39,7 @@ end
 
 
 
-W_intV=interpDVvertices(polygon);
+W_intV=interpDVvertices(polygon*flipLR);
 
 for k=1:length(W_intV)
 

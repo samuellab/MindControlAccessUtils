@@ -49,18 +49,3 @@ for k=1:length(W_intV)
     y(k)=temp(2);
 end
 
-
-
-function Wpt_out=clipAnteriorPosterior(Wpt,MaxAP)
-%This function truncate the worm points in the anterior-posterior
-%dimension. For example, if the anterior-posterior dimension only has a gridsize 
-% of 100 pts, and a point is given of 125 then this outputs 100
-%
-%
-
-%Dorsal-Ventral value is the same
-Wpt_out(1)=Wpt(1);
-Wpt_out(2)=min(Wpt(2),MaxAP-1);
-
-
-

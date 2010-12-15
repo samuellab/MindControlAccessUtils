@@ -7,14 +7,22 @@
 %illumination pattern is at each frame.
 
 YAML='D:\WormIllum\100301\20100301_1938_unc17Halo.yaml'
-videoIn='C:\Documents and Settings\andy\My Documents\Publication\RawSupplementaryVideo\20091117_1804_zx444Halo.avi';
+videoIn='C:\Documents and Settings\andy\My Documents\Publication\RawSupplementaryVideo\20100301_1938_unc17Halo.avi';
 
 COLOR=2; %Green is 2. Blue is 3. (RGB)
 
-
-
 startf=8854;
 endf=9368;
+
+
+DISPLAY=1;
+READINYAML=0
+
+
+%Protocol Information
+manuallyEnteredProtocol
+
+
 
 %%%%%%%%%%
 
@@ -22,13 +30,13 @@ sign=-1;
 
 obj=mmreader(videoIn);
 
+if READINYAML
+    %Read in YAML
+    mcdf=Mcd_Frame;
+    mcdf=mcdf.yaml2matlab(YAML);
+end
 
-%Read in YAML
-mcdf=Mcd_Frame;
-mcdf=mcdf.yaml2matlab(YAML);
 
-
-DISPLAY=0;
 
 if DISPLAY
     figure(1);
@@ -68,8 +76,12 @@ for k=1:length(mcdf)
             plot(C(1+orig(2),1),sign.*C(1+orig(2),2),'o');
         end
         
-        [x, y]=simpleIllumWorm2Im(w,[21,100]);
-        
+        if w.ProtocolIsOn==0
+            [x, y]=simpleIllumWorm2Im(w,[21,100]);
+        else
+            [x,y]=wormPolygon2Im(w,protocolGridSize,protocol(:,:,w.ProtocolStep+1));
+        end
+            
         if (DISPLAY)
             plot(x,sign.*y,'ro')
             
@@ -93,7 +105,7 @@ for k=1:length(mcdf)
         
         
         
- 
+        
         
         
         %If the DLP is off
@@ -114,12 +126,12 @@ for k=1:length(mcdf)
         merge(:,:,mod(COLOR+1,3)+1)=uint8( uint8(currentFrame(:,:,mod(COLOR+2,3)+1)-uint8(factor.*150).*uint8(mask) )+factor.*50.*uint8(mask) );
         
         
-
+        
         %insert frame stamp
-       merge=insertText(merge,num2str(mcdf(k).FrameNumber),1);
-       if (mcdf(k).DLPisOn) 
-       merge=insertText(merge,'DLP On',0);
-       end
+        merge=insertText(merge,num2str(mcdf(k).FrameNumber),1);
+        if (mcdf(k).DLPisOn)
+            merge=insertText(merge,'DLP On',0);
+        end
         imwrite(merge,['vidOut/' num2str(k) '.jpg'],'Quality',100)
         
         if (DISPLAY)
@@ -128,6 +140,6 @@ for k=1:length(mcdf)
             pause
         end
         
-       
+        
     end
 end

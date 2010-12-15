@@ -2,6 +2,7 @@
 
 videoIn='C:\Documents and Settings\andy\My Documents\Publication\RawSupplementaryVideo\20100818_1631_myo3Halo_1.avi';
 
+COLOR=2; %Green is 2. Blue is 3. (RGB)
 
 sign=-1;
 
@@ -90,9 +91,10 @@ for k=1:length(mcdf)
         
         %the other channels should be zero where the
         %laser is illuminated (the roi)
-        merge(:,:,3)=uint8( currentFrame(:,:,3)+factor.*255.*uint8(mask) );
-        merge(:,:,1)=uint8( uint8(currentFrame(:,:,1)-uint8(factor.*150).*uint8(mask) ) +factor.*50.*uint8(mask) );
-        merge(:,:,2)=uint8( uint8(currentFrame(:,:,1)-uint8(factor.*150).*uint8(mask) )+factor.*50.*uint8(mask) );
+        merge(:,:,COLOR)=uint8( currentFrame(:,:,COLOR)+factor.*255.*uint8(mask) );
+        %Set the other two colors
+        merge(:,:,mod(COLOR,3)+1)=uint8( uint8(currentFrame(:,:,mod(COLOR+1,3)+1)-uint8(factor.*150).*uint8(mask) ) +factor.*50.*uint8(mask) );
+        merge(:,:,mod(COLOR+1,3)+1)=uint8( uint8(currentFrame(:,:,mod(COLOR+2,3)+1)-uint8(factor.*150).*uint8(mask) )+factor.*50.*uint8(mask) );
         
         
 

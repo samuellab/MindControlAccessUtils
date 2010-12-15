@@ -91,8 +91,8 @@ for k=1:length(mcdf)
         %the other channels should be zero where the
         %laser is illuminated (the roi)
         merge(:,:,3)=uint8( currentFrame(:,:,3)+factor.*255.*uint8(mask) );
-        merge(:,:,1)=uint8( uint8(currentFrame(:,:,1)-150.*uint8(mask) ) +factor.*50.*uint8(mask) );
-        merge(:,:,2)=uint8( uint8(currentFrame(:,:,1)-150.*uint8(mask) )+factor.*50.*uint8(mask) );
+        merge(:,:,1)=uint8( uint8(currentFrame(:,:,1)-uint8(factor.*150).*uint8(mask) ) +factor.*50.*uint8(mask) );
+        merge(:,:,2)=uint8( uint8(currentFrame(:,:,1)-uint8(factor.*150).*uint8(mask) )+factor.*50.*uint8(mask) );
         
         
 

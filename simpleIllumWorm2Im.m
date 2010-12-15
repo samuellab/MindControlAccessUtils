@@ -26,11 +26,18 @@ W_vertA= W_orig+W_extent*[1 0;0 1];
 %%Let's convert W_vertA to I_vertA
 W_GridSize=[21,100];
 
+%If we need to flip left/right in worm coordinate space
+if mcdf.IllumFlipLR
+    flipLR=[-1 0; 0 1];
+else
+    flipLR=[1 0; 0 1];
+end
 
-Vert(1,:)=clipAnteriorPosterior( W_orig+W_extent*[1 0;0 1], W_GridSize(AP));
-Vert(2,:)=clipAnteriorPosterior( W_orig+W_extent*[-1 0;0 1], W_GridSize(AP));
-Vert(3,:)=clipAnteriorPosterior( W_orig+W_extent*[-1 0;0 -1], W_GridSize(AP));
-Vert(4,:)=clipAnteriorPosterior( W_orig+W_extent*[1 0;0 -1], W_GridSize(AP));
+
+Vert(1,:)=clipAnteriorPosterior( W_orig+W_extent*[1 0;0 1], W_GridSize(AP))*flipLR;
+Vert(2,:)=clipAnteriorPosterior( W_orig+W_extent*[-1 0;0 1], W_GridSize(AP))*flipLR;
+Vert(3,:)=clipAnteriorPosterior( W_orig+W_extent*[-1 0;0 -1], W_GridSize(AP))*flipLR;
+Vert(4,:)=clipAnteriorPosterior( W_orig+W_extent*[1 0;0 -1], W_GridSize(AP))*flipLR;
 
 
 W_intV=interpDVvertices(Vert);

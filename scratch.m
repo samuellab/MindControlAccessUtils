@@ -1,17 +1,22 @@
 %This will plot a worm
 
-videoIn='C:\Documents and Settings\andy\My Documents\Publication\RawSupplementaryVideo\20100720_1735_egl6ChR_12.avi';
+videoIn='C:\Documents and Settings\andy\My Documents\Publication\RawSupplementaryVideo\20100818_1631_myo3Halo_1.avi';
 
-figure(1);
-figure(2);
+
 sign=-1;
 
-startf=6762;
-endf=9524;
+startf=6592;
+endf=7337;
 
 obj=mmreader(videoIn);
 
 DISPLAY=0;
+
+if DISPLAY
+    figure(1);
+    figure(2);
+end
+
 
 m=1;
 for k=1:length(mcdf)
@@ -59,9 +64,10 @@ for k=1:length(mcdf)
         %of the frame that we are reading in
         mask = imresize(poly2mask(x, y, 768,1024), [obj.Height obj.Width]);
         
-        %invert the mask
-        invMask=ones(size(mask))-mask;
-        
+        if mcdf(k).IllumInvert
+            %invert the mask
+            mask=ones(size(mask))-mask;
+        end
         
         %Read in the current frame
         currentFrame=obj.read(m);

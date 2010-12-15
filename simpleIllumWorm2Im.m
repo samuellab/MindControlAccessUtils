@@ -27,10 +27,11 @@ W_vertA= W_orig+W_extent*[1 0;0 1];
 W_GridSize=[21,100];
 
 
-Vert(1,:)=W_orig+W_extent*[1 0;0 1];
-Vert(2,:)=W_orig+W_extent*[-1 0;0 1];
-Vert(3,:)=W_orig+W_extent*[-1 0;0 -1];
-Vert(4,:)=W_orig+W_extent*[1 0;0 -1];
+Vert(1,:)=clipAnteriorPosterior( W_orig+W_extent*[1 0;0 1], W_GridSize(AP));
+Vert(2,:)=clipAnteriorPosterior( W_orig+W_extent*[-1 0;0 1], W_GridSize(AP));
+Vert(3,:)=clipAnteriorPosterior( W_orig+W_extent*[-1 0;0 -1], W_GridSize(AP));
+Vert(4,:)=clipAnteriorPosterior( W_orig+W_extent*[1 0;0 -1], W_GridSize(AP));
+
 
 W_intV=interpDVvertices(Vert);
 
@@ -40,6 +41,19 @@ for k=1:length(W_intV)
     x(k)=temp(1);
     y(k)=temp(2);
 end
+
+
+
+function Wpt_out=clipAnteriorPosterior(Wpt,MaxAP)
+%This function truncate the worm points in the anterior-posterior
+%dimension. For example, if the anterior-posterior dimension only has a gridsize 
+% of 100 pts, and a point is given of 125 then this outputs 100
+%
+%
+
+%Dorsal-Ventral value is the same
+Wpt_out(1)=Wpt(1);
+Wpt_out(2)=min(Wpt(2),MaxAP-1);
 
 
 

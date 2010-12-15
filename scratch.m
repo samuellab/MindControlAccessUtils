@@ -88,18 +88,13 @@ for k=1:length(mcdf)
         merge(:,:,1)=uint8( uint8(currentFrame(:,:,1)-150.*uint8(mask) ) +factor.*50.*uint8(mask) );
         merge(:,:,2)=uint8( uint8(currentFrame(:,:,1)-150.*uint8(mask) )+factor.*50.*uint8(mask) );
         
+        
+        mcdf(k).FrameNumber
         %insert frame stamp
-        fstamp=uint8( 255.* ( 1-text2im(num2str(mcdf(k).FrameNumber)) ));
-        %create temp frame which is the right size and contains the frame
-        %stamp
-        tempf=uint8(zeros(obj.Height,obj.Width));
-        tempf( size(merge,1)-size(fstamp,1):size(merge,1)-1,size(merge,2)-size(fstamp,2):size(merge,2)-1)=uint8(fstamp);
-       
-        
-        merge(:,:,1)=uint8(merge(:,:,1)+tempf);
-        merge(:,:,2)=uint8(merge(:,:,2)+tempf);
-        merge(:,:,3)=uint8(merge(:,:,3)+tempf);
-        
+       merge=insertText(merge,num2str(mcdf(k).FrameNumber),1);
+       if (mcdf(k).DLPisOn) 
+       merge=insertText(merge,'DLP On',1);
+       end
         imwrite(merge,['vidOut/' num2str(k) '.jpg'],'Quality',100)
         
         if (DISPLAY)

@@ -1,15 +1,32 @@
-%This will plot a worm
 
-videoIn='C:\Documents and Settings\andy\My Documents\Publication\RawSupplementaryVideo\20100818_1631_myo3Halo_1.avi';
+
+
+%This script  will take an unannotated video of an experiment that starts
+%with YAML frame startf and ends with YAML frame endf. This script goes
+%through and annotates the video with color annotations showing where the
+%illumination pattern is at each frame.
+
+YAML='D:\WormIllum\100301\20100301_1938_unc17Halo.yaml'
+videoIn='C:\Documents and Settings\andy\My Documents\Publication\RawSupplementaryVideo\20091117_1804_zx444Halo.avi';
 
 COLOR=2; %Green is 2. Blue is 3. (RGB)
 
+
+
+startf=8854;
+endf=9368;
+
+%%%%%%%%%%
+
 sign=-1;
 
-startf=6592;
-endf=7337;
-
 obj=mmreader(videoIn);
+
+
+%Read in YAML
+mcdf=Mcd_Frame;
+mcdf=mcdf.yaml2matlab(YAML);
+
 
 DISPLAY=0;
 

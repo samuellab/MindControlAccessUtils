@@ -55,7 +55,6 @@ while ~isEndOfFrame(tline)
             case 'ProtocolStep'
                 [mcdf.ProtocolStep tline]=getVal(fid,tline);
             otherwise
-                disp(['fname matched nothing: ',fname])
                 tline=fgets(fid);
                 
                 

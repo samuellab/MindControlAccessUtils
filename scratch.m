@@ -89,7 +89,7 @@ for k=1:length(mcdf)
         merge(:,:,2)=uint8( uint8(currentFrame(:,:,1)-150.*uint8(mask) )+factor.*50.*uint8(mask) );
         
         %insert frame stamp
-        fstamp=uint8( 255.* ( 1-text2im(num2str(k)) ));
+        fstamp=uint8( 255.* ( 1-text2im(num2str(mcdf(k).FrameNumber)) ));
         %create temp frame which is the right size and contains the frame
         %stamp
         tempf=uint8(zeros(obj.Height,obj.Width));

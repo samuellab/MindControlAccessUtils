@@ -6,16 +6,16 @@
 %through and annotates the video with color annotations showing where the
 %illumination pattern is at each frame.
 
-YAML='D:\WormIllum\100301\20100301_1938_unc17Halo.yaml'
-videoIn='C:\Documents and Settings\andy\My Documents\Publication\RawSupplementaryVideo\20100301_1938_unc17Halo.avi';
+YAML='D:\WormIllum\100301\20100301_1506_unc17Halo.yaml'
+videoIn='C:\Documents and Settings\andy\My Documents\Publication\RawSupplementaryVideo\20100301_1506_unc17Halo.avi';
 
 COLOR=2; %Green is 2. Blue is 3. (RGB)
 
-startf=8854;
-endf=9368;
+startf=37773;
+endf=38430;
 
 
-DISPLAY=0;
+DISPLAY=0
 READINYAML=0
 
 

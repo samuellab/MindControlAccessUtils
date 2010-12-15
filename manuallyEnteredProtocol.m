@@ -1,132 +1,18 @@
 %% Manually entered protocol File
 
-            protocolGridSize=[5,100];
+            protocolGridSize=[21,100];
             
             rawprotocol=[];
-            
-            rawprotocol(end+1,:)= [ -4, 0, -1, 0, -1, 14, -4, 14 ];
- 
-         
-            
-            
-            
-            rawprotocol(end+1,:)= [ -1, 0, 1, 0, 1, 14, -1, 14 ];
- 
-         
-            
-            
-            
-            rawprotocol(end+1,:)= [ 1, 0, 3, 0, 3, 14, 1, 14 ];
- 
-         
-            
-            
-            
-            rawprotocol(end+1,:)= [ -4, 14, -1, 14, -1, 28, -4, 28 ];
- 
-         
-            
-            
-            
-            rawprotocol(end+1,:)= [ -1, 14, 1, 14, 1, 28, -1, 28 ];
- 
-         
-            
-            
-            
-            rawprotocol(end+1,:)= [ 1, 14, 3, 14, 3, 28, 1, 28 ];
- 
-         
-            
-            
-            
-            rawprotocol(end+1,:)= [ -4, 28, -1, 28, -1, 42, -4, 42 ];
- 
-         
-            
-            
-            
-            rawprotocol(end+1,:)= [ -1, 28, 1, 28, 1, 42, -1, 42 ];
- 
-         
-            
-            
-            
-            rawprotocol(end+1,:)= [ 1, 28, 3, 28, 3, 42, 1, 42 ];
- 
-         
-            
-            
-            
-            rawprotocol(end+1,:)= [ -4, 42, -1, 42, -1, 56, -4, 56 ];
- 
-         
-            
-            
-            
-            rawprotocol(end+1,:)= [ -1, 42, 1, 42, 1, 56, -1, 56 ];
- 
-         
-            
-            
-            
-            rawprotocol(end+1,:)= [ 1, 42, 3, 42, 3, 56, 1, 56 ];
- 
-         
-            
-            
-            
-            rawprotocol(end+1,:)= [ -4, 56, -1, 56, -1, 70, -4, 70 ];
- 
-         
-            
-            
-            
-            rawprotocol(end+1,:)= [ -1, 56, 1, 56, 1, 70, -1, 70 ];
- 
-         
-            
-            
-            
-            rawprotocol(end+1,:)= [ 1, 56, 3, 56, 3, 70, 1, 70 ];
- 
-         
-            
-            
-            
-            rawprotocol(end+1,:)= [ -4, 70, -1, 70, -1, 84, -4, 84 ];
- 
-         
-            
-            
-            
-            rawprotocol(end+1,:)= [ -1, 70, 1, 70, 1, 84, -1, 84 ];
- 
-         
-            
-            
-            
-            rawprotocol(end+1,:)= [ 1, 70, 3, 70, 3, 84, 1, 84 ];
- 
-         
-            
-            
-            
-            rawprotocol(end+1,:)= [ -4, 84, -1, 84, -1, 98, -4, 98 ];
- 
-         
-            
-            
-            
-            rawprotocol(end+1,:)= [ -1, 84, 1, 84, 1, 98, -1, 98 ];
- 
-         
-            
-            
-            
-            rawprotocol(end+1,:)= [ 1, 84, 3, 84, 3, 98, 1, 98 ];
+            rawprotocol(end+1,:) =[ -3, 30, 9, 30, 9, 38, -3, 38 ];
+            rawprotocol(end+1,:) =[ -9, 38, 3, 38, 3, 46, -9, 46 ];
+            rawprotocol(end+1,:) =[ -5, 62, 7, 62, 7, 70, -5, 70 ];
+            rawprotocol(end+1,:) =[ -4, 86, 8, 86, 8, 94, -4, 94 ];
+           rawprotocol(end+1,:) =[ -12, 30, 12, 30, 12, 0, -12, 0 ];
+           rawprotocol(end+1,:) =[ -12, 86, 12, 86, 12, 70, -12, 70 ];
+           rawprotocol(end+1,:) = [ -12, 0, 12, 0, 12, 99, -12, 99 ];
+            rawprotocol(end+1,:) =[ -12, 0, 12, 0, 12, 46, -12, 46 ];
+            rawprotocol(end+1,:)= [ -12, 62, 12, 62, 12, 99, -12, 99 ];
 
-            
             %Convert this raw protocol format into a 3d matrix 
             %Suc that the i'th protocol is protocol(:,:,i)
             % and the vertices coordinate in the dorsal ventral dimension are the

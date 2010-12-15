@@ -15,7 +15,7 @@ startf=8854;
 endf=9368;
 
 
-DISPLAY=1;
+DISPLAY=0;
 READINYAML=0
 
 

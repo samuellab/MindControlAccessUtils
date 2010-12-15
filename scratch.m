@@ -1,6 +1,7 @@
 %This will plot a worm
 
 videoIn='D:\WormIllum\100720\20100720_1735_egl6ChR_12_HUDS.avi';
+aviobj = avifile('vidOut.avi')
 
 figure(1);
 figure(2);
@@ -17,13 +18,16 @@ DISPLAY=0;
 for k=1:length(mcdf)
     
     if (mcdf(k).FrameNumber <= endf ) && (mcdf(k).FrameNumber >= startf )
+        if mod(k,100)==0
+            disp(num2str(k))
+        end
         
         w=mcdf(k);
         BoundaryA=reshape(w.BoundaryA,2,[])';
         BoundaryB=reshape(w.BoundaryB,2,[])';
         C=reshape(w.SegmentedCenterline,2,[])';
-        orig=w.IllumRectOrigin
-        C(1+orig(2),:)
+        orig=w.IllumRectOrigin;
+        C(1+orig(2),:);
         
         
         
@@ -70,7 +74,7 @@ for k=1:length(mcdf)
         %If the DLP is off
         if (mcdf(k).DLPisOn)
             %how much of the other channels should shine through in the roi
-            factor=0; %nothing whent he laser is on.. only the blue channel
+            factor=.2; %not much when the laser is on.. only the blue channel
         else
             factor=.7; %most of the other channels should shine through.. it should only be tinged blue
             
@@ -82,13 +86,15 @@ for k=1:length(mcdf)
         merge(:,:,1)=currentFrame(:,:,1).*uint8(invMask)+  uint8(factor.* (uint8(mask).*currentFrame(:,:,1))) ;
         merge(:,:,2)=currentFrame(:,:,2).*uint8(invMask)+  uint8(factor.* (uint8(mask).*currentFrame(:,:,2))) ;
         
-        
+        aviobj = addframe(aviobj,merge);
         
         if (DISPLAY)
             figure(2);
             imshow(merge);
+            pause
         end
         
-        pause
+       
     end
 end
+aviobj = close(aviobj);

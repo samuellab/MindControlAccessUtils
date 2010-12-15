@@ -21,10 +21,10 @@ AP=2; %Anterior Posterior Dimension
 xx=1;
 yy=2;
 
-W_vertA= W_orig+W_extent*[1 0;0 1]
+W_vertA= W_orig+W_extent*[1 0;0 1];
 
 %%Let's convert W_vertA to I_vertA
-W_GridSize=[21,100]
+W_GridSize=[21,100];
 
 
 Vert(1,:)=W_orig+W_extent*[1 0;0 1];

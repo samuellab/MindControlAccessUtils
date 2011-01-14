@@ -1,7 +1,7 @@
 Welcome to MindControl AccessUtils
 ==================================
 
-This is a series of scripts in MATLAB to import data in YAML files created by the [MindControl][1] software. This is different from the [MindControl-analysis][2] suite in that it is simple, compact and lacks a GUI. 
+This is a series of scripts in MATLAB to import data from YAML files created by the [MindControl][1] software. This is different from the [MindControl-analysis][2] suite in that it is simple, compact and lacks a GUI. 
 
   [1]: http://github.com/samuellab/mindcontrol
   [2]: http://github.com/samuellab/mindcontrol-analysis

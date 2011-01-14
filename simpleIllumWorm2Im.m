@@ -27,7 +27,7 @@ W_vertA= W_orig+W_extent*[1 0;0 1];
 W_GridSize=[21,100];
 
 %If we need to flip left/right in worm coordinate space
-if mcdf.IllumFlipLR
+if 1 %mcdf.IllumFlipLR  <--- REMOVE THIS HACK
     flipLR=[-1 0; 0 1];
 else
     flipLR=[1 0; 0 1];

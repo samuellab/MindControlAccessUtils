@@ -5,23 +5,40 @@
 %with YAML frame startf and ends with YAML frame endf. This script goes
 %through and annotates the video with color annotations showing where the
 %illumination pattern is at each frame.
+%
+% Why this whole kludgy setup? For speed and simplicity, the MindControl
+% software works exclusive in grayscale. When you use MindControl it
+% records two video transcripts of the experiments. One is the raw video of
+% the worm. The other is annotated video. In the annotated video,
+% the software draws on the worm where it is sending illumination. 
+% This provides an inmutable record and is very useful for debugging.
+%
+% If we want color video, we have to regenerate the illumination pattern
+% from the YAML data files  and lay that on top of the raw video. This is
+% kludgy. This is what is going on here. Ultimately you would only use this
+% for aesthetics, if you want to make figures that were to shopw up in a
+% publication for example.
+%
 
-YAML='D:\WormIllum\100818\20100818_1631_myo3Halo_1.yaml'
-videoIn='C:\Documents and Settings\andy\My Documents\Publication\RawSupplementaryVideo\20100818_1631_myo3Halo_1.avi';
+YAML='D:\WormIllum\100301\20100301_1506_unc17Halo.yaml'
+videoIn='C:\Documents and Settings\andy\My Documents\Publication\RawSupplementaryVideo\20100301_1506_unc17Halo_s5.avi';
 
 COLOR=2; %Green is 2. Blue is 3. (RGB)
 
-startf=6592;
-endf=7337;
+startf=37773;
+endf=38413;
+
+
 
 
 DISPLAY=0
 READINYAML=1
 
-
 %Protocol Information
-manuallyEnteredProtocol
-
+manual=0;
+if (manual==1)
+    manuallyEnteredProtocol
+end
 
 
 %%%%%%%%%%
@@ -60,8 +77,7 @@ for k=1:length(mcdf)
         BoundaryA=reshape(w.BoundaryA,2,[])';
         BoundaryB=reshape(w.BoundaryB,2,[])';
         C=reshape(w.SegmentedCenterline,2,[])';
-        orig=w.IllumRectOrigin;
-        C(1+orig(2),:);
+       
         
         
         
@@ -73,6 +89,7 @@ for k=1:length(mcdf)
             plot(BoundaryA(:,1),sign.*BoundaryA(:,2))
             plot(BoundaryB(:,1),sign.*BoundaryB(:,2))
             plot(C(:,1),sign.*C(:,2),'r');
+            orig=w.IllumRectOrigin;
             plot(C(1+orig(2),1),sign.*C(1+orig(2),2),'o');
         end
         

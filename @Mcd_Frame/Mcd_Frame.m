@@ -17,6 +17,8 @@ classdef Mcd_Frame
         StageVelocity =0; %velocity sent to stage in stage units/second
         ProtocolIsOn =0; %bool whether you're using protocol
         ProtocolStep =0; %what step within protocol is currently selected
+        GreenLaser =0; %int 0-100 of relative laser power. -1 means leaser is not being controlled programmatically
+        BlueLaser =0; %int 0-100 of relative laser power. -1 means leaser is not being controlled programmatically
     end
     
     methods (Static)

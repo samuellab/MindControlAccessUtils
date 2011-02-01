@@ -54,6 +54,8 @@ while ~isEndOfFrame(tline)
                 [mcdf.ProtocolIsOn tline]=getVal(fid,tline);
             case 'ProtocolStep'
                 [mcdf.ProtocolStep tline]=getVal(fid,tline);
+            case 'LaserPower'
+                [mcdf.GreenLaser mcdf.BlueLaser tline]=getLaserPower(fid,tline);
             otherwise
                 disp(['fname matched nothing: ',fname])
                 tline=fgets(fid);
@@ -190,6 +192,36 @@ else
     xy=NaN;
 end
 end
+
+function[Green Blue tline]=getLaserPower(fid,tline)
+%Get the blue and green laser powers from a YAML struct
+%The current line should be a field with no values, only children
+if ~isFieldWithValue(tline)
+    %Advance to the next line
+    tline=fgets(fid);
+    fname= getField(tline);
+    while strcmp(fname,'Blue') || strcmp(fname,'Green')
+        switch fname
+            case 'Blue'
+                [Blue) tline]=getVal(fid,tline);
+                fname= getField(tline);
+            case 'Green'
+                [Green tline]=getVal(fid, tline);
+                fname= getField(tline);
+                
+        end
+    end
+    
+    
+    
+else
+    %Something was wrong
+    Green=-1;
+    Blue=-1;
+end
+end
+
+
 
 function [data tline]=getCVseq(fid,tline)
 %Parce the CV Sequence and advanced the line feed

@@ -203,7 +203,7 @@ if ~isFieldWithValue(tline)
     while strcmp(fname,'Blue') || strcmp(fname,'Green')
         switch fname
             case 'Blue'
-                [Blue) tline]=getVal(fid,tline);
+                [Blue tline]=getVal(fid,tline);
                 fname= getField(tline);
             case 'Green'
                 [Green tline]=getVal(fid, tline);

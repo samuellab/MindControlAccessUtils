@@ -5,5 +5,5 @@ function setupPaths ()
 %(@Class directories do not need to be added to the path)
 
 addpath(pwd);
-addpath(fullfile(pwd,'ColorGeneration'));
+addpath(fullfile(pwd,'ColorVidGeneration'));
 

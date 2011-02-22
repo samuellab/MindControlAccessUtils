@@ -2,7 +2,7 @@ function mcdf=readOneFrame(fid)
 % ret=readOneFrame(fid)
 % This function reads in a frame of data in a YAML file created by
 % MindControl. It expects to already be at the line of the first frame (not
-% the line with the dash in it) as would be teh cast if seekToFirstFrame()
+% the line with the dash in it) as would be the case if seekToFirstFrame()
 % had been run previously.
 %
 % Andrew Leifer
@@ -57,7 +57,6 @@ while ~isEndOfFrame(tline)
             case 'LaserPower'
                 [mcdf.GreenLaser mcdf.BlueLaser tline]=getLaserPower(fid,tline);
             otherwise
-                disp(['fname matched nothing: ',fname])
                 tline=fgets(fid);
                 
                 

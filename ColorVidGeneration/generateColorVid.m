@@ -20,13 +20,17 @@
 % publication for example.
 %
 
-YAML='D:\WormIllum\100301\20100301_1506_unc17Halo.yaml'
-videoIn='C:\Documents and Settings\andy\My Documents\Publication\RawSupplementaryVideo\20100301_1506_unc17Halo_s5.avi';
+YAML='/Users/andy/Desktop/Temp/20110218_1624_rig3ChR2_3.yaml'
+videoIn='/Users/andy/Desktop/Temp/20110218_1624_rig4ChR2_uncormpressed.avi';
 
-COLOR=2; %Green is 2. Blue is 3. (RGB)
 
-startf=37773;
-endf=38413;
+GREEN=2;
+BLUE=3;
+
+COLOR=GREEN; %Green is 2. Blue is 3. (RGB)
+
+startf=5969; %HUDS internal frame number (not nth frame)
+endf=8380;
 
 
 

@@ -11,36 +11,50 @@
 % records two video transcripts of the experiments. One is the raw video of
 % the worm. The other is annotated video. In the annotated video,
 % the software draws on the worm where it is sending illumination. 
-% This provides an inmutable record and is very useful for debugging.
+% This provides an immutable record and is very useful for debugging.
 %
 % If we want color video, we have to regenerate the illumination pattern
 % from the YAML data files  and lay that on top of the raw video. This is
 % kludgy. This is what is going on here. Ultimately you would only use this
-% for aesthetics, if you want to make figures that were to shopw up in a
-% publication for example.
+% for aesthetics, for example to create figures that go in a
+% publication  or presentation. 
+%
+% It is important to note that we are dealign with a number of different
+% indexign schemes.
+%
+% The startf and endf frames are specified using the HUDS internal frame
+% number, as soon on the _HUDS.avi video produced by MindControl.
+% 
+% There are certain assumptions made about the video spoecified at videoIn 
+% as well. Specifically the startf frame should appear in the videoIn
+% exactly nOffsetFrames into the video.
 %
 
-YAML='/Users/andy/Desktop/Temp/20110218_1624_rig3ChR2_3.yaml'
-videoIn='/Users/andy/Desktop/Temp/20110218_1624_rig4ChR2_uncormpressed.avi';
+YAML='D:\Temp\20110228_1115_newTest.yaml'
 
+startf=24; %HUDS internal frame number (not nth frame)
+endf=800;
+
+
+videoIn='C:\Documents and settings\andy\TestSwimLong.avi';
+nOffsetFrames=23; %number of frames from start of videoIn until the startf'th frame
 
 GREEN=2;
 BLUE=3;
 
 COLOR=GREEN; %Green is 2. Blue is 3. (RGB)
 
-startf=5969; %HUDS internal frame number (not nth frame)
-endf=8380;
 
 
 
+DISPLAY=0 %Show a debugging display of whats going on
+READINYAML=1 %Read in the YAML (required the first time) 
 
-DISPLAY=0
-READINYAML=1
+
+manual=1;
 
 %Protocol Information
-manual=0;
-if (manual==1)
+if (manual>0)
     manuallyEnteredProtocol
 end
 
@@ -55,6 +69,8 @@ if READINYAML
     %Read in YAML
     mcdf=Mcd_Frame;
     mcdf=mcdf.yaml2matlab(YAML);
+else
+    disp('Skipping reading in YAML... (are you sure thats a good idea?)');
 end
 
 
@@ -65,7 +81,7 @@ if DISPLAY
 end
 
 
-m=1;
+m=1+nOffsetFrames;
 for k=1:length(mcdf)
     if (m>obj.NumberOfFrames)
         disp(['m=' num2str(m)])
@@ -77,7 +93,7 @@ for k=1:length(mcdf)
             disp(num2str(mcdf(k).FrameNumber))
         end
         
-        w=mcdf(k);
+        w=mcdf(k); %current frame
         BoundaryA=reshape(w.BoundaryA,2,[])';
         BoundaryB=reshape(w.BoundaryB,2,[])';
         C=reshape(w.SegmentedCenterline,2,[])';
@@ -100,6 +116,9 @@ for k=1:length(mcdf)
         if w.ProtocolIsOn==0
             [x, y]=simpleIllumWorm2Im(w,[21,100]);
         else
+            if manual==0
+                error('Help! The MindControl software used a protocol, but we do not seem to have access to that protocol. You must manually enter it using the manually entered protocol option.');
+            end
             [x,y]=wormPolygon2Im(w,protocolGridSize,protocol(:,:,w.ProtocolStep+1));
         end
             

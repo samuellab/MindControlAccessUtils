@@ -7,6 +7,9 @@ function ret =seekToFirstFrame(fid)
 % Andrew Leifer
 % leifer@fas.harvard.edu
 % 2 November 2010
+if (fid==-1)
+    error('Error: fid is invalid. Did you specify the correct filename?');
+end
 
 disp('Seeking to first frame of YAML file.');
 %Find Where the Frames Begin

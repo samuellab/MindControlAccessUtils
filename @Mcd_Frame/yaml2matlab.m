@@ -9,6 +9,9 @@ function mcdf=yaml2matlab(file)
 
 
 fid = fopen(file); 
+if (fid==-1)
+    error('ERROR YAML of that filename was not found.');
+end
 
 Mcd_Frame.seekToFirstFrame(fid);
 k=1;

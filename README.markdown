@@ -10,6 +10,13 @@ Authors
 -------
 MindControl AccessUtils is written by Andrew Leifer with help from Marc Gershow.
 
+QuickStart
+-----------
+ setupPaths; %Add the appropriate paths.
+ YAML=C:\Path\To\YAML\File\mydata.yaml; %YAML data file generated  by MindControl software
+ mcdf=Mcd_Frame; %create MindControl data frame object
+ mcdf=mcdf.yaml2matlab(YAML); %Import YAML into mcdf data object
+
 Requirements
 -----------
 MindControl Access Utils was tested on MATLAB v.7.8.0.347 (R2009a). 

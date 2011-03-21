@@ -49,7 +49,7 @@ COLOR=GREEN; %Green is 2. Blue is 3. (RGB)
 
 DISPLAY=0 %Show a debugging display of whats going on
 READINYAML=1 %Read in the YAML (required the first time) 
-
+CREATE_HUDS=1 %Create the heads up display (frame number, DLP on display)
 
 manual=1;
 
@@ -80,6 +80,7 @@ if DISPLAY
     figure(2);
 end
 
+disp('Generating output video..')
 
 m=1+nOffsetFrames;
 for k=1:length(mcdf)
@@ -168,8 +169,10 @@ for k=1:length(mcdf)
         
         
         %insert frame stamp
-        merge=insertText(merge,num2str(mcdf(k).FrameNumber),1);
-        if (mcdf(k).DLPisOn)
+        if CREATE_HUDS==1
+            merge=insertText(merge,num2str(mcdf(k).FrameNumber),1);
+        end
+        if (mcdf(k).DLPisOn && CREATE_HUDS==1)
             merge=insertText(merge,'DLP On',0);
         end
         imwrite(merge,['vidOut/' num2str(k) '.jpg'],'Quality',100)

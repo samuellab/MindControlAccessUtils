@@ -30,36 +30,45 @@
 % exactly nOffsetFrames into the video.
 %
 
-YAML='D:\Temp\20110228_1115_newTest.yaml'
+YAML='D:\Temp\20110218_1624_rig3ChR2_3.yaml'
 
-startf=24; %HUDS internal frame number (not nth frame)
-endf=800;
+startf=7500; %HUDS internal frame number (not nth frame)
+endf=8200;
 
 
-videoIn='C:\Documents and settings\andy\TestSwimLong.avi';
-nOffsetFrames=23; %number of frames from start of videoIn until the startf'th frame
+videoIn='D:\Temp\20110218_1624_rig3ChR2_3_repro.avi';
 
+ %If the frame in startf is not the first frame in the video file specified
+ %by videoIn, then we must specify the number of frames into the video that it
+ %lies. In other words, the HUDS frame number "startf" is the
+ %nOffsetFrames'nth frame in the video videoIn.
+ 
+nOffsetFrames=5948;
 GREEN=2;
 BLUE=3;
 
-COLOR=GREEN; %Green is 2. Blue is 3. (RGB)
+COLOR=BLUE; %Green is 2. Blue is 3. (RGB)
 
+CHANGE_BRIGHTNESS_WITH_LASER = 1; % change the brightness with the laser and turn off the colored curser 
 
 
 
 DISPLAY=0 %Show a debugging display of whats going on
-READINYAML=1 %Read in the YAML (required the first time) 
+READINYAML=0 %Read in the YAML (required the first time) 
 CREATE_HUDS=1 %Create the heads up display (frame number, DLP on display)
 
-manual=1;
+%whether we want to manually enter the illumination region or would rather
+%use a protocl
+manual=1; 
 
 %Protocol Information
 if (manual>0)
-    manuallyEnteredProtocol
+    manuallyEnteredProtocol %protocol is specified in this .m file
 end
 
 
-%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+run ..\SetupPaths.m
 
 sign=-1;
 
@@ -149,12 +158,29 @@ for k=1:length(mcdf)
         
         
         
-        %If the DLP is off
+        %If the DLP is on
         if (mcdf(k).DLPisOn)
             %how much of the other channels should shine through in the roi
-            factor=1; %not much when the laser is on.. only the blue channel
+            
+            if CHANGE_BRIGHTNESS_WITH_LASER==1
+                if COLOR==BLUE
+                    factor=mcdf(k).BlueLaser / 100;
+                elseif COLOR==GREEN
+                    factor=mcdf(k).GreenLaser / 100;
+                end
+            else
+            
+                factor=1; %not much when the laser is on.. only the blue channel
+            end
         else
-            factor=.2; %most of the other channels should shine through.. it should only be tinged blue
+            %The DLP is off
+            if CHANGE_BRIGHTNESS_WITH_LASER==1
+                 factor=0; %if the brightenss of the spot varies with the laser and the laser is off, then we shouldn't show anything
+            else
+                %if we are in curser mode than we should make a small
+                %curosr to see where we are about to stimulate
+                 factor=.2; %most of the other channels should shine through.. it should only be tinged blue
+            end
             
         end
         

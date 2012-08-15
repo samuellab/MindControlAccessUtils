@@ -26,6 +26,7 @@ classdef Mcd_Frame
         mcdf = readOneFrame(fid);
         success = seekToFirstFrame(fid);
         plotWorm(mcdf);
+        newvals=dropCorrespondingVals(mcdf, vals, dropFrames)
     end
         
 end

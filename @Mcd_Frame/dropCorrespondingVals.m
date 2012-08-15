@@ -24,7 +24,7 @@ assert(ndims(vals)<3,'vals should be a vector, not a matrix')
 assert(ndims(dropFrames)<3,'dropFrames should be a vector, not a matrix')
 
 %Find all dropFrames inside the mcdf object
-[d,ind,~]=intersect(dropFrames,[Mcd_Frame.FrameNumber]);
+[d,~,ind]=intersect(dropFrames,[Mcd_Frame.FrameNumber]);
 
     if isempty(d)
        newvals=vals;

@@ -25,6 +25,7 @@ classdef Mcd_Frame
         mcdf_arr = yaml2matlab(fname);
         mcdf = readOneFrame(fid);
         success = seekToFirstFrame(fid);
+        newvals=dropCorrespondingVals(mcdf, vals, dropFrames)
     end
         
 end

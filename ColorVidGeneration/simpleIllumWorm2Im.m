@@ -28,9 +28,9 @@ W_GridSize=[21,100];
 
 %If we need to flip left/right in worm coordinate space
 if mcdf.IllumFlipLR  
-    flipLR=[-1 0; 0 1];
-else
     flipLR=[1 0; 0 1];
+else
+    flipLR=[-1 0; 0 1];
 end
 
 

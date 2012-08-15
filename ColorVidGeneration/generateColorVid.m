@@ -30,36 +30,41 @@
 % exactly nOffsetFrames into the video.
 %
 
-YAML='D:\Temp\20110218_1624_rig3ChR2_3.yaml'
+YAML='F:\OmegaDLP\120323\20120323_1732_lim4Halo_2.yaml'
 
-startf=7500; %HUDS internal frame number (not nth frame)
-endf=8200;
+startf=351945; %HUDS internal frame number (not nth frame)
+endf=354167;
 
 
-videoIn='D:\Temp\20110218_1624_rig3ChR2_3_repro.avi';
+videoIn='F:\OmegaDLP\120323\20120323_1732_lim4Halo_2.avi';
+otuput_directory='D:\Temp\color\'
 
  %If the frame in startf is not the first frame in the video file specified
  %by videoIn, then we must specify the number of frames into the video that it
  %lies. In other words, the HUDS frame number "startf" is the
  %nOffsetFrames'nth frame in the video videoIn.
  
-nOffsetFrames=5948;
+nOffsetFrames=592;
 GREEN=2;
 BLUE=3;
 
-COLOR=BLUE; %Green is 2. Blue is 3. (RGB)
+COLOR=GREEN; %Green is 2. Blue is 3. (RGB)
 
 CHANGE_BRIGHTNESS_WITH_LASER = 1; % change the brightness with the laser and turn off the colored curser 
 
 
 
-DISPLAY=0 %Show a debugging display of whats going on
-READINYAML=0 %Read in the YAML (required the first time) 
-CREATE_HUDS=1 %Create the heads up display (frame number, DLP on display)
+DISPLAY=false %Show a debugging display of whats going on
+READINYAML=true %Read in the YAML (required the first time) 
+CREATE_HUDS=false %Create the heads up display (frame number, DLP on display)
 
 %whether we want to manually enter the illumination region or would rather
 %use a protocl
 manual=1; 
+
+
+
+
 
 %Protocol Information
 if (manual>0)
@@ -69,8 +74,8 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 run ..\SetupPaths.m
-
 sign=-1;
+
 
 obj=mmreader(videoIn);
 
@@ -201,7 +206,7 @@ for k=1:length(mcdf)
         if (mcdf(k).DLPisOn && CREATE_HUDS==1)
             merge=insertText(merge,'DLP On',0);
         end
-        imwrite(merge,['vidOut/' num2str(k) '.jpg'],'Quality',100)
+        imwrite(merge,[otuput_directory num2str(k) '.jpg'],'Quality',100)
         
         if (DISPLAY)
             figure(2);

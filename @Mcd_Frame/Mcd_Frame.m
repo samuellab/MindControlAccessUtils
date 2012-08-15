@@ -20,12 +20,16 @@ classdef Mcd_Frame
         GreenLaser =0; %int 0-100 of relative laser power. -1 means leaser is not being controlled programmatically
         BlueLaser =0; %int 0-100 of relative laser power. -1 means leaser is not being controlled programmatically
     end
+
+        methods
+	        newvals=dropCorrespondingVals(mcdf, vals, dropFrames);
+	end
+		        
     
     methods (Static)
         mcdf_arr = yaml2matlab(fname);
         mcdf = readOneFrame(fid);
         success = seekToFirstFrame(fid);
-        newvals=dropCorrespondingVals(mcdf, vals, dropFrames)
     end
         
 end
